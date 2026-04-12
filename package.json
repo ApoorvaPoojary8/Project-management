@@ -1,0 +1,19 @@
+{
+  "name": "projectmanagement",
+  "version": "1.0.0",
+  "description": "a project management course for beginner",
+  "keywords": [
+    "github",
+    "udemy"
+  ],
+  "license": "ISC",
+  "author": "Apoorva",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "devDependencies": {
+    "prettier": "3.8.2"
+  }
+}
