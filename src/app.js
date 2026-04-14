@@ -18,13 +18,17 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
+// import the routes
+import healthCheckRouter from "./routes/healthcheck.routes.js"
+
+
+app.use("/api/v1/healthcheck",healthCheckRouter)
+
+
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Welcome to SprintSync");
 });
 
-app.get("/instragram", (req, res) => {
-  res.send("This is an instragram page");
-});
 
 export default app;
