@@ -1,4 +1,44 @@
 import Mailgen from "mailgen";
+import nodemailer from "nodemailer";
+
+
+const sendEmail = async(options) =>{
+    const mailGenerator = new Mailgen({
+        theme:"default",
+        product:{
+            name:"Sprintsync",
+            link:"https://sprintsync.com"
+        }
+    })
+    const emailTextual = Generator.generatePlaintext(options.mailgenContent)
+    const emailHtml = Generator.generatePlaintext(options.mailgenContent)
+
+    const transporter = nodemailer.createTransport({
+        host:process.env.MAILTRAP_SMTP_HOST,
+        port:process.env.MAILTRAP_SMTP_PORT,
+        auth:{
+            user:process.env.MAILTRAP_SMTP_USER,
+            pass:process.env.MAILTRAP_SMTP_PASS
+        }
+    })
+
+    const mail = {
+        from : "mail.tasksmanager@gmail.com",
+        to:options.email,
+        subject:options.subject,
+        text:emailTextual,
+        html:emailHtml
+
+    }
+    try{
+        await transporter.sendMail(mail);
+    }
+    catch(error){
+        console.error("Email service Failed.Make sure that you have provided tehyour mail trap credentials in the .env");
+        console.error(error);
+    }
+}
+
 
 
 
@@ -48,6 +88,7 @@ const forgotPasswordMailgenContent = ( username,passwordResetUrl )=>{
 
 export {
     emailVerificationMailgenContent,
-    forgotPasswordMailgenContent
+    forgotPasswordMailgenContent,
+    sendEmail
 
 }
